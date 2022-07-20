@@ -33,7 +33,7 @@ import json
 
 def randomState():
   validStates = [u'AZ', u'SC', u'LA', u'MN', u'NJ', u'DC', u'OR', u'VA', u'RI', u'KY', u'WY', u'NH', u'MI', u'NV', u'WI', u'ID', u'CA', u'CT', u'NE', u'MT', u'NC', u'VT', u'MD', u'DE', u'MO', u'IL', u'ME', u'WA', u'ND', u'MS', u'AL', u'IN', u'OH', u'TN', u'NM', u'PA', u'SD', u'NY', u'TX', u'WV', u'GA', u'MA', u'KS', u'CO', u'FL', u'AK', u'AR', u'OK', u'UT', u'HI', u'IA']
-  validStates = states_array
+  #validStates = states_array
   return validStates[random.randint(0,len(validStates)-1)]
 
 def randomLoanPaidAmount():
@@ -94,12 +94,16 @@ display(source_schema)
 
 # Get Databricks secret value 
 connSharedAccessKeyName = "adbSendDltDemoLoansEvents"
-connSharedAccessKey = dbutils.secrets.get(scope = "access_creds", key = "ehSendDltDemosLoanEventsAccessKey")
+#connSharedAccessKey = dbutils.secrets.get(scope = "access_creds", key = "ehSendDltDemosLoanEventsAccessKey")
+connSharedAccessKey = dbutils.secrets.get(scope = "access_creds_vkm", key = "ehSendDltDemoLoansEventsAccessKey")
 
 # COMMAND ----------
 
-EH_NAMESPACE = "dlt-demo-eh"
-EH_KAFKA_TOPIC = "loans-events"
+#EH_NAMESPACE = "dlt-demo-eh"
+EH_NAMESPACE = "dlt-demo-eh-vkm"
+#EH_KAFKA_TOPIC = "loans-events"
+EH_KAFKA_TOPIC = "loans-events-vkm"
+
 EH_BOOTSTRAP_SERVERS = f"{EH_NAMESPACE}.servicebus.windows.net:9093"
 EH_SASL = f"kafkashaded.org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://{EH_NAMESPACE}.servicebus.windows.net/;SharedAccessKeyName={connSharedAccessKeyName};SharedAccessKey={connSharedAccessKey};EntityPath={EH_KAFKA_TOPIC}\";"
 

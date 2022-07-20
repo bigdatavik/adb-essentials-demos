@@ -11,10 +11,14 @@ from pyspark.sql.types import *
 
 # Get Databricks secret value 
 connSharedAccessKeyName = "adbListenDltDemoLoansEvents"
-connSharedAccessKey = dbutils.secrets.get(scope = "access_creds", key = "ehListenDltDemoLoansEventsAccessKey")
+#connSharedAccessKey = dbutils.secrets.get(scope = "access_creds", key = "ehListenDltDemoLoansEventsAccessKey")
+connSharedAccessKey = dbutils.secrets.get(scope = "access_creds_vkm", key = "ehListenDltDemoLoansEventsAccessKey")
 
-EH_NAMESPACE = "dlt-demo-eh"
-EH_KAFKA_TOPIC = "loans-events"
+# EH_NAMESPACE = "dlt-demo-eh"
+# EH_KAFKA_TOPIC = "loans-events"
+EH_NAMESPACE = "dlt-demo-eh-vkm"
+EH_KAFKA_TOPIC = "loans-events-vkm"
+
 EH_BOOTSTRAP_SERVERS = f"{EH_NAMESPACE}.servicebus.windows.net:9093"
 EH_SASL = f"kafkashaded.org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://{EH_NAMESPACE}.servicebus.windows.net/;SharedAccessKeyName={connSharedAccessKeyName};SharedAccessKey={connSharedAccessKey};EntityPath={EH_KAFKA_TOPIC}\";"
 
