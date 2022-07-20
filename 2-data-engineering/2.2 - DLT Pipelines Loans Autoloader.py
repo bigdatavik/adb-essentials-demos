@@ -3,11 +3,17 @@
 import dlt
 from pyspark.sql.types import *
 
-# source_file_path = "/adbessentials/loan_stats_csv"
+#source_file_path = "/adbessentials/loan_stats_csv"
 # schema_checkpoint_file_path = "/adbessentials/loan_stats_csv_schema"
 
-source_file_path = "abfss://data@dltdemostorage.dfs.core.windows.net/adbessentials/loan_stats_csv"
-schema_checkpoint_file_path = "abfss://data@dltdemostorage.dfs.core.windows.net/adbessentials/loan_stats_csv_schema"
+# source_file_path = "abfss://data@dltdemostorage.dfs.core.windows.net/adbessentials/loan_stats_csv"
+# schema_checkpoint_file_path = "abfss://data@dltdemostorage.dfs.core.windows.net/adbessentials/loan_stats_csv_schema"
+
+# source_file_path = "abfss://files@vm186007.dfs.core.windows.net/adbessentials/loan_stats_csv"
+source_file_path = "abfss://files@vm186007.dfs.core.windows.net/loan_stats_csv" # worked
+# source_file_path = "/mnt/vm186007/files/loan_stats_csv" # worked
+# schema_checkpoint_file_path = "abfss://files@vm186007.dfs.core.windows.net/adbessentials/loan_stats_csv_schema"
+schema_checkpoint_file_path = "abfss://files@vm186007.dfs.core.windows.net/loan_stats_csv_schema"
 
 @dlt.create_table(
   comment="The malware raw data",
