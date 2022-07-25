@@ -9,11 +9,19 @@
 # DBTITLE 1,Initialise
 # Load Delta table from storage location and save as table in metastore
 #loan_data = spark.read.format("delta").load("/adbessentials/loan_stats")
-#loan_data.write.format("delta").saveAsTable("adb_essentials.loan_stats")
+###loan_data.write.format("delta").saveAsTable("adb_essentials.loan_stats")
+#loan_data.write.format("delta").saveAsTable("delta_adb_essentials_vkm.loan_stats")
+
 
 # Remove data from previous runs
-dbutils.fs.rm("/adbessentials/loan_stats_ml", recurse=True)
-spark.sql("DROP TABLE IF EXISTS adb_essentials.loan_stats_ml")
+
+#dbutils.fs.rm("/Users/{current_user}/loan_stats_ml", recurse=True)
+spark.sql("DROP TABLE IF EXISTS delta_adb_essentials_vkm.loan_stats_ml")
+
+
+
+# dbutils.fs.rm("/adbessentials/loan_stats_ml", recurse=True)
+# spark.sql("DROP TABLE IF EXISTS adb_essentials.loan_stats_ml")
 
 # COMMAND ----------
 
@@ -37,7 +45,8 @@ spark.sql("DROP TABLE IF EXISTS adb_essentials.loan_stats_ml")
 from pyspark.sql.functions import *
 
 # Read raw data from table
-data = spark.table("adb_essentials.loan_stats")
+#data = spark.table("adb_essentials.loan_stats")
+data = spark.table("delta_adb_essentials_vkm.loan_stats")
 display(data)
 
 # COMMAND ----------
@@ -55,7 +64,8 @@ display(loan_stats_ml)
 
 # DBTITLE 1,Save to new Delta table
 # Create directory where table should be stored
-delta_location = "/adbessentials/loan_stats_ml"
+#delta_location = "/adbessentials/loan_stats_ml"
+delta_location = "/Users/{current_user}/loan_stats_ml"
 dbutils.fs.mkdirs(delta_location)
 
 # Save table in Delta Lake format to cloud storage
@@ -63,7 +73,8 @@ dbutils.fs.mkdirs(delta_location)
 loan_stats_ml.write.mode("overwrite").save(delta_location ) # use this if table already exists
 
 # Register as table in metastore database
-spark.sql("CREATE TABLE adb_essentials.loan_stats_ml USING DELTA LOCATION '/adbessentials/loan_stats_ml'")
+#spark.sql("CREATE TABLE adb_essentials.loan_stats_ml USING DELTA LOCATION '/adbessentials/loan_stats_ml'")
+spark.sql("CREATE TABLE delta_adb_essentials_vkm.loan_stats_ml USING DELTA LOCATION '/Users/{current_user}/loan_stats_ml'")
 display(loan_stats_ml)
 
 # COMMAND ----------
@@ -86,7 +97,7 @@ import mlflow
 model_uri = summary.best_trial.model_path
 
 # Register to Model Registry
-model_name = "thorsten_adb_essentials_automl"
+model_name = "vkm_adb_essentials_automl"
 registered_model_version = mlflow.register_model(model_uri, model_name)
 
 # COMMAND ----------

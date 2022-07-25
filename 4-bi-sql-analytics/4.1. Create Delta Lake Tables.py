@@ -4,7 +4,7 @@
 
 # COMMAND ----------
 
-db = "delta_adb_essentials"
+db = "delta_adb_essentials_vkm"
 
 spark.sql(f"CREATE DATABASE IF NOT EXISTS {db}")
 spark.sql(f"USE {db}")
@@ -27,14 +27,14 @@ loan_stats.write.format("delta").mode("append").saveAsTable(f"{db}.delta_bronze"
 
 # MAGIC %sql
 # MAGIC SELECT addr_state, COUNT(*)
-# MAGIC FROM delta_adb_essentials.delta_bronze
+# MAGIC FROM delta_adb_essentials_vkm.delta_bronze
 # MAGIC GROUP BY 1
 # MAGIC ORDER BY 2 ASC
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE OR REPLACE TABLE delta_adb_essentials.loans_silver_partitioned
+# MAGIC CREATE OR REPLACE TABLE delta_adb_essentials_vkm.loans_silver_partitioned
 # MAGIC PARTITIONED BY (loan_issue_date)
 # MAGIC AS SELECT
 # MAGIC   TO_DATE(
@@ -42,34 +42,30 @@ loan_stats.write.format("delta").mode("append").saveAsTable(f"{db}.delta_bronze"
 # MAGIC   ) loan_issue_date,
 # MAGIC   *
 # MAGIC FROM
-# MAGIC   delta_adb_essentials.delta_bronze
+# MAGIC   delta_adb_essentials_vkm.delta_bronze
 # MAGIC WHERE
 # MAGIC   length(addr_state) = 2
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC DESCRIBE delta_adb_essentials.loans_silver_partitioned
+# MAGIC DESCRIBE delta_adb_essentials_vkm.loans_silver_partitioned
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC SELECT *
-# MAGIC FROM delta_adb_essentials.loans_silver_partitioned
+# MAGIC FROM delta_adb_essentials_vkm.loans_silver_partitioned
 # MAGIC LIMIT 10
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC ANALYZE TABLE delta_adb_essentials.loans_silver_partitioned
+# MAGIC ANALYZE TABLE delta_adb_essentials_vkm.loans_silver_partitioned
 # MAGIC COMPUTE STATISTICS FOR COLUMNS addr_state, purpose, application_type, loan_amnt;
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC OPTIMIZE delta_adb_essentials.loans_silver_partitioned
+# MAGIC OPTIMIZE delta_adb_essentials_vkm.loans_silver_partitioned
 # MAGIC ZORDER BY (addr_state)
-
-# COMMAND ----------
-
-
