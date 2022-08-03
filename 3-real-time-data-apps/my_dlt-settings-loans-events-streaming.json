@@ -1,0 +1,31 @@
+{
+    "id": "0646216d-3bdc-4c81-8a7f-0f95ff9fab85",
+    "clusters": [
+        {
+            "label": "default",
+            "spark_conf": {
+                "spark.hadoop.fs.azure.account.key.vm186007.dfs.core.windows.net": "{{secrets/access_creds_vkm/adlsDltDemoStorageAccessKey}}"
+            },
+            "num_workers": 4
+        }
+    ],
+    "development": true,
+    "continuous": true,
+    "channel": "CURRENT",
+    "edition": "ADVANCED",
+    "libraries": [
+        {
+            "notebook": {
+                "path": "/Repos/vik.malhotra@databricks.com/adb-essentials-demos/3-real-time-data-apps/3.2 - Lending Club DLT Part 1 - Python"
+            }
+        },
+        {
+            "notebook": {
+                "path": "/Repos/vik.malhotra@databricks.com/adb-essentials-demos/3-real-time-data-apps/3.3 - Lending Club DLT Part 2 - SQL"
+            }
+        }
+    ],
+    "name": "ADB Essentials - Loans Events Streaming - vkm",
+    "storage": "abfss://files@vm186007.dfs.core.windows.net/dlt_rt/delta_adb_essentials_vkm",
+    "target": "delta_adb_essentials_rt_vkm"
+}

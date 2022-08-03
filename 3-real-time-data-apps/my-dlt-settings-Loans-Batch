@@ -1,0 +1,37 @@
+{
+    "id": "cfbb8035-e4eb-4dee-8fff-d1f631f5fef2",
+    "clusters": [
+        {
+            "label": "default",
+            "spark_conf": {
+                "spark.hadoop.fs.azure.account.key.vm186007.dfs.core.windows.net": "{{secrets/access_creds_vkm/adlsDltDemoStorageAccessKey}}"
+            },
+            "node_type_id": "Standard_D3_v2",
+            "driver_node_type_id": "Standard_D3_v2",
+            "num_workers": 4
+        },
+        {
+            "label": "maintenance",
+            "spark_conf": {
+                "spark.hadoop.fs.azure.account.key.vm186007.dfs.core.windows.net": "{{secrets/access_creds_vkm/adlsDltDemoStorageAccessKey}}"
+            },
+            "node_type_id": "Standard_L4s",
+            "driver_node_type_id": "Standard_L4s",
+            "num_workers": 4
+        }
+    ],
+    "development": true,
+    "continuous": false,
+    "channel": "CURRENT",
+    "edition": "ADVANCED",
+    "libraries": [
+        {
+            "notebook": {
+                "path": "/Repos/vik.malhotra@databricks.com/adb-essentials-demos/2-data-engineering/2.2 - DLT Pipelines Loans Autoloader"
+            }
+        }
+    ],
+    "name": "ADB Essentials - Loans Batch - vkm",
+    "storage": "abfss://files@vm186007.dfs.core.windows.net/dlt/delta_adb_essentials_vkm",
+    "target": "delta_adb_essentials_vkm"
+}

@@ -1,0 +1,26 @@
+{
+    "num_workers": 2,
+    "cluster_name": "vkm-adb-essentials-9-0",
+    "spark_version": "10.4.x-scala2.12",
+    "spark_conf": {
+        "spark.databricks.enableWsfs": "false",
+        "spark.hadoop.fs.azure.account.key.vm186007.dfs.core.windows.net": "{{secrets/access_creds_vkm/adlsDltDemoStorageAccessKey}}",
+        "spark.databricks.delta.preview.enabled": "true"
+    },
+    "azure_attributes": {
+        "first_on_demand": 1,
+        "availability": "ON_DEMAND_AZURE",
+        "spot_bid_max_price": -1
+    },
+    "node_type_id": "Standard_E8_v3",
+    "driver_node_type_id": "Standard_E8_v3",
+    "ssh_public_keys": [],
+    "custom_tags": {},
+    "spark_env_vars": {},
+    "autotermination_minutes": 120,
+    "enable_elastic_disk": true,
+    "cluster_source": "UI",
+    "init_scripts": [],
+    "runtime_engine": "PHOTON",
+    "cluster_id": "0718-233938-rmlnc2g8"
+}
